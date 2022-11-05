@@ -3,6 +3,7 @@ import {
   Controller,
   HttpStatus,
   Post,
+  Put,
   NotFoundException,
   Get,
   Param,
@@ -27,7 +28,7 @@ export class PassageiroController {
     return await this.service.buscarPassageiros(page, size, nome);
   }
 
-  @Post('atualizarPassageiro')
+  @Put()
   public async atualizarPassageiro(
     @Body() passageiro: Passageiro,
   ): Promise<NestResponse> {

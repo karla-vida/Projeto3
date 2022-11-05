@@ -5,6 +5,8 @@ import {
   IsString,
   IsBoolean,
   IsOptional,
+  IsDate,
+  IsISO8601,
 } from 'class-validator';
 import { IsMotoristaMenor18 } from './is-motorista-menor18';
 import { IsMortoristaCpfValido } from './is-motorista-cpf-valido';
@@ -15,9 +17,9 @@ export class Motorista {
   nome: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsISO8601()
   @IsMotoristaMenor18()
-  dataNascimento: number;
+  dataNascimento: Date;
 
   @IsNotEmpty()
   @IsMortoristaCpfValido()

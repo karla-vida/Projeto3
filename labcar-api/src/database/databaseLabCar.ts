@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+import { Distancia } from './../viagem/distancia.entity';
 import { Viagem } from './../viagem/viagem.entity';
 import { Injectable } from '@nestjs/common';
 import { writeFile, readFile } from 'fs/promises';
@@ -10,6 +10,7 @@ export class DatabaseLabCar {
   private FILENAME_MOTORISTA = 'motoristas.json';
   private FILENAME_PASSAGEIRO = 'passageiros.json';
   private FILENAME_VIAGEM = 'viagens.json';
+  private FILENAME_DISTANCIA = 'distancias.json';
 
   public async getViagens(): Promise<Viagem[]> {
     const viagensInFile = await readFile(this.FILENAME_VIAGEM, 'utf-8');
@@ -69,5 +70,11 @@ export class DatabaseLabCar {
 
   public async gravarPassageiros(passageiros: Passageiro[]) {
     await writeFile(this.FILENAME_PASSAGEIRO, JSON.stringify(passageiros));
+  }
+
+  public async getDistancias(): Promise<Distancia[]> {
+    const distanciasInFile = await readFile(this.FILENAME_DISTANCIA, 'utf-8');
+    const distancias = JSON.parse(distanciasInFile);
+    return distancias;
   }
 }

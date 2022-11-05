@@ -21,4 +21,13 @@ export class ViagemService {
         viagem.status == TipoViagem.ACCEPTED,
     );
   }
+
+  public async listarDistancias(endereco: string) {
+    const distancias = await this.database.getDistancias();
+
+    return distancias.filter(
+      (distancia) =>
+        distancia.enderecoOrigem.toLowerCase() == endereco.toLowerCase(),
+    );
+  }
 }

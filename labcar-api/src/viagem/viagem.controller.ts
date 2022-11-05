@@ -17,14 +17,12 @@ export class ViagemController {
       .build();
   }
 
-  @Get(':cpf')
-  public async listaViagensProximasMotorista(@Param('cpf') cpf: string) {
-    const viagemCriada = await this.service.getViagemAtualMotorista(cpf);
-
-    return new NestResponseBuilder()
-      .withStatus(HttpStatus.CREATED)
-      .withHeaders({ Location: `/Viagens/${viagemCriada.destino}` })
-      .withBody(viagemCriada)
-      .build();
+  @Get(':endereco')
+  public async listaViagensProximasMotorista(
+    @Param('endereco') endereco: string,
+  ) {
+    const distanciaEndereco = await this.service.listarDistancias(endereco);
+    console.log(distanciaEndereco);
+    return distanciaEndereco;
   }
 }

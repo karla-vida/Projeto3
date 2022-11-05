@@ -13,10 +13,15 @@ export class IsMotoristaMenor18Constraint
   implements ValidatorConstraintInterface
 {
   async validate(
-    value: any,
+    value: Date,
     validationArguments?: ValidationArguments,
   ): Promise<boolean> {
-    if (value < 18) {
+    const dataAtual = new Date();
+    const dataValor = new Date(value);
+    const difference = dataAtual.getTime() - dataValor.getTime();
+    const idade = Math.floor(difference / (1000 * 60 * 60 * 24 * 365));
+
+    if (idade < 18) {
       return new Promise<boolean>((resolve) => {
         resolve(false);
       });

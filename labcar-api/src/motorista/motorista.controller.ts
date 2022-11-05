@@ -3,12 +3,14 @@ import {
   Controller,
   HttpStatus,
   Post,
+  Put,
   Get,
   Param,
   NotFoundException,
   Query,
   Delete,
   HttpCode,
+  Patch,
 } from '@nestjs/common';
 import { NestResponse } from 'src/core/http/nest-response';
 import { NestResponseBuilder } from 'src/core/http/nest-response-builder';
@@ -38,7 +40,7 @@ export class MotoristaController {
       .withBody(motoristaCriado)
       .build();
   }
-  @Post('atualizarMotorista')
+  @Put()
   public async atualizarMotorista(
     @Body() motorista: Motorista,
   ): Promise<NestResponse> {
@@ -62,10 +64,9 @@ export class MotoristaController {
       .build();
   }
 
-  @Post(':cpf')
+  @Patch(':cpf')
   public async bloquearOuDesbloquearMotorista(@Param('cpf') cpf: string) {
     const motoristaChecar = await this.service.getMotorista(cpf);
-    motoristaChecar.bloqueado = !motoristaChecar.bloqueado;
 
     if (!motoristaChecar) {
       throw new NotFoundException({
@@ -73,6 +74,7 @@ export class MotoristaController {
         message: 'Motorista não encontrado',
       });
     }
+    motoristaChecar.bloqueado = !motoristaChecar.bloqueado;
 
     const motoristaAtualizado = await this.service.atualizarMotorista(
       motoristaChecar,
