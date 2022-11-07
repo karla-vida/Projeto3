@@ -1,11 +1,9 @@
 import {
   IsNotEmpty,
-  IsNumber,
   MaxLength,
   IsString,
   IsBoolean,
   IsOptional,
-  IsDate,
   IsISO8601,
 } from 'class-validator';
 import { IsMotoristaMenor18 } from './is-motorista-menor18';
